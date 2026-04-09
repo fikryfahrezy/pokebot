@@ -1,0 +1,14 @@
+services:
+  pokebot:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: true
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

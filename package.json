@@ -1,0 +1,22 @@
+{
+  "name": "pokebot",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "prepare": "if [ \"$NODE_ENV\" != 'production' -a \"$CI\" != 'true' ]; then husky; fi",
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .ts"
+  },
+  "dependencies": {
+    "hono": "4.12.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/bun": "1.3.11",
+    "eslint": "10.2.0",
+    "globals": "17.4.0",
+    "husky": "9.1.7",
+    "lint-staged": "16.4.0",
+    "prettier": "3.8.1",
+    "typescript-eslint": "8.58.1"
+  }
+}
