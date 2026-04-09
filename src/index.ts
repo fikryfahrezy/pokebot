@@ -1,3 +1,5 @@
+import { capitalizeFirstLetter } from "./formatter";
+import type { Pokemon } from "./pokemon.types";
 import { Hono } from "hono";
 
 const POKEAPI_BASE_URL = Bun.env.POKEAPI_BASE_URL || "";
@@ -11,7 +13,15 @@ async function getPokemonStats(pokemon: string) {
     return { error: `Failed to fetch stats for ${pokemon}` };
   }
 
-  return response.json();
+  const data = (await response.json()) as Pokemon;
+
+  return {
+    name: capitalizeFirstLetter(data.name),
+    height: data.height,
+    weight: data.weight,
+    types: data.types,
+    official_artwork: data.sprites.other?.["official-artwork"],
+  };
 }
 
 const app = new Hono();

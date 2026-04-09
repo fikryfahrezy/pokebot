@@ -36,7 +36,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=install /temp/prod/node_modules node_modules
-COPY --from=prerelease /usr/src/app/src/index.ts .
+COPY --from=prerelease /usr/src/app/src src
 COPY --from=prerelease /usr/src/app/package.json .
 
 # run the app
@@ -47,4 +47,4 @@ EXPOSE $PORT/tcp
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:${PORT}
 
-ENTRYPOINT [ "bun", "run", "index.ts" ]
+ENTRYPOINT [ "bun", "run", "src/index.ts" ]
