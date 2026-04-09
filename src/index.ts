@@ -3,8 +3,14 @@ import { Hono } from "hono";
 const POKEAPI_BASE_URL = Bun.env.POKEAPI_BASE_URL || "";
 
 async function getPokemonStats(pokemon: string) {
-  console.log(`${POKEAPI_BASE_URL}/api/v2/${pokemon}`);
-  const response = await fetch(`${POKEAPI_BASE_URL}/api/v2/pokemon/${pokemon}`);
+  const url = `${POKEAPI_BASE_URL}/api/v2/pokemon/${pokemon}`;
+  console.log(url);
+
+  const response = await fetch(url);
+  if (!response.ok) {
+    return { error: `Failed to fetch stats for ${pokemon}` };
+  }
+
   return response.json();
 }
 
